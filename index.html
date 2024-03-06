@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R-type Datapath</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"
+        integrity="sha512-0bEtK0USNd96MnO4XhH8jhv3nyRF0eK87pJke6pkYf3cM0uDIhNJy9ltuzqgypoIFXw3JSuiy04tVk4AjpZdZw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"
+        integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css"
+        integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        td {
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        $(init);
+
+        function init() {
+
+            counter = 0;
+
+            $('.ui.accordion')
+                .accordion()
+                ;
+
+            $('.tools')
+                .popup({
+                    on: 'click'
+                })
+                ;
+
+            $('.ui.basic.modal')
+                .modal('show')
+                ;
+
+            $('#dALU').data('type', 1).attr('type', 1).draggable(
+                {
+                    cursor: 'move',
+                    revert: true,
+                });
+
+            $('#dIM').data('type', 2).attr('type', 2).draggable(
+                {
+                    cursor: 'move',
+                    revert: true,
+                });
+
+            $('#dPC').data('type', 3).attr('type', 3).draggable(
+                {
+                    cursor: 'move',
+                    revert: true,
+                });
+
+            $('#dMUX').data('type', 4).attr('type', 4).draggable(
+                {
+                    cursor: 'move',
+                    revert: true,
+                });
+
+            $('#dRF').data('type', 5).attr('type', 5).draggable(
+                {
+                    cursor: 'move',
+                    revert: true,
+                });
+
+            $('#dCU').data('type', 6).attr('type', 6).draggable(
+                {
+                    cursor: 'move',
+                    revert: true,
+                });
+
+            $('#dAdder').data('type', 7).attr('type', 7).draggable(
+                {
+                    cursor: 'move',
+                    revert: true,
+                });
+
+            $('#ALU').data('type', 1).attr('type', 1).droppable(
+                {
+                    hoverClass: 'hovered',
+                    drop: check
+                });
+
+
+            $('#IM').data('type', 2).attr('type', 2).droppable(
+                {
+                    hoverClass: 'hovered',
+                    drop: check
+                });
+
+
+            $('#PC').data('type', 3).attr('type', 3).droppable(
+                {
+                    hoverClass: 'hovered',
+                    drop: check
+                });
+
+
+            $('#MUX').data('type', 4).attr('type', 4).droppable(
+                {
+                    hoverClass: 'hovered',
+                    drop: check
+                });
+
+            $('#RF').data('type', 5).attr('type', 5).droppable(
+                {
+                    hoverClass: 'hovered',
+                    drop: check
+                });
+
+            $('#CU').data('type', 6).attr('type', 6).droppable(
+                {
+                    hoverClass: 'hovered',
+                    drop: check
+                });
+
+            $('#Adder').data('type', 7).attr('type', 7).droppable(
+                {
+                    hoverClass: 'hovered',
+                    drop: check
+                });
+        }
+
+
+        function check(event, ui) {
+
+            var placement = $(this).data('type');
+            var movingObject = ui.draggable.data('type');
+
+            if (placement == movingObject) {
+                ui.draggable.draggable('disable');
+                $(this).droppable('disable');
+                $(this).css("background-image", "");
+                ui.draggable.position({
+                    of: $(this),
+                    my: 'center',
+                    at: 'center',
+                    using: function (css, calc) {
+                        $(this).animate(css, 200, "linear");
+                    }
+                });
+                ui.draggable.draggable('option', 'revert', false);
+                counter = counter + 1;
+                if (counter == 7) {
+                    alert('Congratulations!');
+                }
+            }
+            else {
+                alert('Please try again');
+            }
+        }
+
+    </script>
+</head>
+
+<body style="background-color: #F2F2F2; display: flex; align-items: center; justify-content: center;">
+
+    <div class="ui grid">
+        <div class="one wide column"></div>
+
+        <div class="eleven wide column">
+
+            <div class="ui piled compact segment">
+
+                <div id="content" align="center">
+
+                    <div class="ui segment">
+                        <p>R-type Datapath</p>
+                    </div>
+
+                    <div style="position:relative" align="left">
+                        <img src="datapath.png">
+                        <div id="Adder"
+                            style="position: absolute; top: 165px; left: 234px; height: 102px; width: 51px; background-image: url(icon5.png); z-index: 2;">
+                        </div>
+
+                        <div id="MUX"
+                            style="position: absolute; top: 11px; left: 252px; height: 102px; width: 51px; background-image: url(icon5.png); z-index: 2;">
+                        </div>
+
+                        <div id="IM"
+                            style="position: absolute; top: 340px; left: 242px; height: 102px; width: 51px; background-image: url(icon5.png); z-index: 2;">
+                        </div>
+
+                        <div id="PC"
+                            style="position: absolute; top: 339px; left: 71px; height: 102px; width: 51px; background-image: url(icon5.png); z-index: 2;">
+                        </div>
+
+                        <div id="RF"
+                            style="position: absolute; top: 183px; left: 484px; height: 102px; width: 51px; background-image: url(icon5.png); z-index: 2;">
+                        </div>
+
+                        <div id="ALU"
+                            style="position: absolute; top: 182px; left: 660px; height: 102px; width: 51px; background-image: url(icon5.png); z-index: 2;">
+                        </div>
+
+                        <div id="CU"
+                            style="position: absolute; top: 57px; left: 400px; height: 102px; width: 51px; background-image: url(icon5.png); z-index: 2;">
+                        </div>
+
+
+                        <table>
+                            <tr>
+                                <td>
+                                    <div id="dAdder" style="
+      background-image:url(Adder.png);
+      height:102px;
+      width:102px;
+      z-index:3;
+      " class="tools" data-content="The Adder is an Arithmetic Logic Unit that increments the current PC value by a fixed amount each cycle. This produces the next PC value.">
+                                    </div>
+
+
+                                </td>
+                                <td>
+                                    <div id="dMUX" style="
+      background-image:url(MUX.png);
+        height:102px;
+      width:102px;
+      z-index:3;
+      " class="tools" data-content="The Mux, or a multiplexer is a device that acts as a switch. In the case of a 2-to-1 multiplexer - out of two lines, one is connected as the output, determined by the selector.">
+                                    </div>
+
+
+                                </td>
+                                <td>
+                                    <div id="dIM" style="
+      background-image:url(IM.png);
+        height:102px;
+      width:102px;
+      z-index:3;
+      " class="tools" data-content="The IM, or Instruction Memory is a unit that stores the current instruction.">
+                                    </div>
+
+
+                                </td>
+                                <td>
+                                    <div id="dALU" style="
+      background-image:url(ALU.png);
+        height:102px;
+      width:102px;
+      z-index:3;
+      " class="tools" data-content="The ALU, or an Arithmetic Logic Unit is a functional unit that processes. In most cases, it takes in two inputs, performs an arithmetic operation, and produces an output.">
+                                    </div>
+
+
+                                </td>
+                                <td>
+                                    <div id="dPC" style="
+      background-image:url(PC.png);
+        height:102px;
+      width:102px;
+      z-index:3;
+      " class="tools" data-content="The PC, or Program Counter is a register that keeps track of the program sequence.">
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div id="dRF" style="
+      background-image:url(RF.png);
+        height:102px;
+      width:102px;
+      z-index:3;
+      " class="tools" data-content="The RF, or Register File is an array of registers that may contain data. The Register File have both read and write ports.">
+                                    </div>
+
+
+                                </td>
+                                <td>
+                                    <div id="dCU" style="
+      background-image:url(CU.png);
+        height:102px;
+      width:102px;
+      z-index:3;
+      " class="tools" data-content="The CU, or Control Unit is a device that provides control signals to other units on the datapath. These signals instruct the devices on the appropriate response to an instruction.">
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+                    <p></p>
+                </div>
+
+
+            </div>
+        </div>
+
+
+</body>
+
+</html>
